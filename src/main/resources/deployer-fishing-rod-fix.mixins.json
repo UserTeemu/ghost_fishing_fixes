@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.userteemu.deployerfishingrodfix.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "FishingHookMixinOwnerPosImplementation",
+    "FishingHookMixinServer"
+  ],
+  "client": [
+    "FishingHookMixinClient",
+    "FishingHookRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
