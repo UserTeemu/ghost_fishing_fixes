@@ -54,7 +54,7 @@ public abstract class FishingHookMixinServer extends Entity {
 
 		FishingHook instance = (FishingHook)(Object) this;
 
-		if (!instance.level().isClientSide()) return; // This code should run only server-side.
+		if (instance.level().isClientSide()) return; // This code should run only server-side.
 
 		FakePlayerFishingFixes.updateAndNotifyClients((ServerPlayer) instance.getPlayerOwner(), instance, subscriberPlayers.toArray(new ServerPlayer[0]));
 	}
