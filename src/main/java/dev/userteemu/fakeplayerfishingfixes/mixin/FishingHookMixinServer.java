@@ -42,10 +42,11 @@ public abstract class FishingHookMixinServer extends Entity {
 		} else {
 			isOwnedByFakePlayer = false;
 			((FishingHookOwnerPosInterface) this).setOwnerPos(null);
-			FakePlayerFishingFixes.unloadFromClients((FishingHook)(Object) this, subscriberPlayers.toArray(new ServerPlayer[0]));
-			subscriberPlayers.clear();
+			if (subscriberPlayers != null) {
+				FakePlayerFishingFixes.unloadFromClients((FishingHook)(Object) this, subscriberPlayers.toArray(new ServerPlayer[0]));
+				subscriberPlayers.clear();
+			}
 		}
-
 	}
 
 	@Inject(method = "tick", at = @At("RETURN"))
