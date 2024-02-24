@@ -10,7 +10,7 @@
   "contact": {
     "sources": "https://github.com/Fabricators-of-Create/create-fabric-addon-template"
   },
-  "license": "LGPL-3",
+  "license": "LGPL-3.0-or-later",
   "icon": "assets/deployer-fishing-rod-fix/icon.png",
   "environment": "*",
   "entrypoints": {
