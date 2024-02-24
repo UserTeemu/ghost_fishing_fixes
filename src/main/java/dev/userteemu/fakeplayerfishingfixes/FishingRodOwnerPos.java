@@ -1,4 +1,4 @@
-package dev.userteemu.deployerfishingrodfix;
+package dev.userteemu.fakeplayerfishingfixes;
 
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.network.FriendlyByteBuf;

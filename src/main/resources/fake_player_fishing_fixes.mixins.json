@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "dev.userteemu.deployerfishingrodfix.mixin",
+  "package": "dev.userteemu.fakeplayerfishingfixes.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "FishingHookMixinOwnerPosImplementation",

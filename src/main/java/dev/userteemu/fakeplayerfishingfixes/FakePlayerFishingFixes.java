@@ -1,4 +1,4 @@
-package dev.userteemu.deployerfishingrodfix;
+package dev.userteemu.fakeplayerfishingfixes;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ServerPlayer;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dev.userteemu.deployerfishingrodfix.interfaces.FishingHookOwnerPosInterface;
+import dev.userteemu.fakeplayerfishingfixes.interfaces.FishingHookOwnerPosInterface;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -21,9 +21,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
-public class DeployerFishingRodFix implements ModInitializer, ClientModInitializer {
-	public static final String ID = "deployer-fishing-rod-fix";
-	public static final String NAME = "Deployer Fishing Rod Fix";
+public class FakePlayerFishingFixes implements ModInitializer, ClientModInitializer {
+	public static final String ID = "fake_player_fishing_fixes";
+	public static final String NAME = "Fake Player Fishing Fixes";
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
 	public static boolean PORTING_LIB_FOUND = false;

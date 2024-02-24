@@ -1,9 +1,9 @@
-package dev.userteemu.deployerfishingrodfix.mixin;
+package dev.userteemu.fakeplayerfishingfixes.mixin;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import dev.userteemu.deployerfishingrodfix.interfaces.FishingHookOwnerPosInterface;
+import dev.userteemu.fakeplayerfishingfixes.interfaces.FishingHookOwnerPosInterface;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.userteemu.deployerfishingrodfix.DeployerFishingRodFix;
+import dev.userteemu.fakeplayerfishingfixes.FakePlayerFishingFixes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -36,13 +36,13 @@ public abstract class FishingHookMixinServer extends Entity {
 	private void setOwner(Entity owner, CallbackInfo ci) {
 		if (owner.level().isClientSide()) return;
 
-		if (owner instanceof ServerPlayer && DeployerFishingRodFix.isFakePlayer((ServerPlayer) owner)) {
+		if (owner instanceof ServerPlayer && FakePlayerFishingFixes.isFakePlayer((ServerPlayer) owner)) {
 			subscriberPlayers = new HashSet<>();
 			isOwnedByFakePlayer = true;
 		} else {
 			isOwnedByFakePlayer = false;
 			((FishingHookOwnerPosInterface) this).setOwnerPos(null);
-			DeployerFishingRodFix.unloadFromClients((FishingHook)(Object) this, subscriberPlayers.toArray(new ServerPlayer[0]));
+			FakePlayerFishingFixes.unloadFromClients((FishingHook)(Object) this, subscriberPlayers.toArray(new ServerPlayer[0]));
 			subscriberPlayers.clear();
 		}
 
@@ -56,7 +56,7 @@ public abstract class FishingHookMixinServer extends Entity {
 
 		if (!instance.level().isClientSide()) return; // This code should run only server-side.
 
-		DeployerFishingRodFix.updateAndNotifyClients((ServerPlayer) instance.getPlayerOwner(), instance, subscriberPlayers.toArray(new ServerPlayer[0]));
+		FakePlayerFishingFixes.updateAndNotifyClients((ServerPlayer) instance.getPlayerOwner(), instance, subscriberPlayers.toArray(new ServerPlayer[0]));
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public abstract class FishingHookMixinServer extends Entity {
 		super.stopSeenByPlayer(serverPlayer);
 		if (isOwnedByFakePlayer) {
 			subscriberPlayers.remove(serverPlayer);
-			DeployerFishingRodFix.unloadFromClients((FishingHook)(Object) this, serverPlayer);
+			FakePlayerFishingFixes.unloadFromClients((FishingHook)(Object) this, serverPlayer);
 		}
 	}
 }

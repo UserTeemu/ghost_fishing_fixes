@@ -1,28 +1,27 @@
 {
   "schemaVersion": 1,
-  "id": "deployer-fishing-rod-fix",
+  "id": "fake_player_fishing_fixes",
   "version": "${version}",
-  "name": "Deployer Fishing Rod Fix",
-  "description": "Fixes issues with fake players using fisihing rods",
+  "name": "Fake Player Fishing Fixes",
+  "description": "Fixes issues with fake players using fishing rods",
   "authors": [
     "UserTeemu"
   ],
   "contact": {
-    "sources": "https://github.com/Fabricators-of-Create/create-fabric-addon-template"
+    "sources": "https://github.com/UserTeemu/fake_player_fishing_fixes"
   },
   "license": "LGPL-3.0-or-later",
-  "icon": "assets/deployer-fishing-rod-fix/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.userteemu.deployerfishingrodfix.DeployerFishingRodFix"
+      "dev.userteemu.fakeplayerfishingfixes.FakePlayerFishingFixes"
     ],
     "client": [
-      "dev.userteemu.deployerfishingrodfix.DeployerFishingRodFix"
+      "dev.userteemu.fakeplayerfishingfixes.FakePlayerFishingFixes"
     ]
   },
   "mixins": [
-    "deployer-fishing-rod-fix.mixins.json"
+    "fake_player_fishing_fixes.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",

@@ -1,10 +1,10 @@
-package dev.userteemu.deployerfishingrodfix.mixin;
+package dev.userteemu.fakeplayerfishingfixes.mixin;
 
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
-import dev.userteemu.deployerfishingrodfix.FishingRodOwnerPos;
-import dev.userteemu.deployerfishingrodfix.interfaces.FishingHookOwnerPosInterface;
+import dev.userteemu.fakeplayerfishingfixes.FishingRodOwnerPos;
+import dev.userteemu.fakeplayerfishingfixes.interfaces.FishingHookOwnerPosInterface;
 import net.minecraft.world.entity.projectile.FishingHook;
 
 import org.spongepowered.asm.mixin.Unique;
