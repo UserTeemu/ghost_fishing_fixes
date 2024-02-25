@@ -63,7 +63,7 @@ public abstract class FishingHookMixinServer extends Entity {
 	@Override
 	public void startSeenByPlayer(ServerPlayer serverPlayer) {
 		super.startSeenByPlayer(serverPlayer);
-		if (isOwnedByFakePlayer) {
+		if (isOwnedByFakePlayer && !this.isRemoved()) {
 			subscriberPlayers.add(serverPlayer);
 		}
 	}
@@ -71,7 +71,7 @@ public abstract class FishingHookMixinServer extends Entity {
 	@Override
 	public void stopSeenByPlayer(ServerPlayer serverPlayer) {
 		super.stopSeenByPlayer(serverPlayer);
-		if (isOwnedByFakePlayer) {
+		if (isOwnedByFakePlayer && !this.isRemoved()) {
 			subscriberPlayers.remove(serverPlayer);
 			FakePlayerFishingFixes.unloadFromClients((FishingHook)(Object) this, serverPlayer);
 		}
