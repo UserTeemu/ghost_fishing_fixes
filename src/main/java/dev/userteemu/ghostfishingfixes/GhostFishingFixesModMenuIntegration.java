@@ -1,4 +1,4 @@
-package dev.userteemu.fakeplayerfishingfixes;
+package dev.userteemu.ghostfishingfixes;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
@@ -8,9 +8,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
-public class FakePlayerFishingFixesModMenuIntegration implements ModMenuApi {
+public class GhostFishingFixesModMenuIntegration implements ModMenuApi {
 	@Override
 	public ConfigScreenFactory<?> getModConfigScreenFactory() {
-		return parent -> AutoConfig.getConfigScreen(FakePlayerFishingFixesConfig.class, parent).get();
+		return parent -> AutoConfig.getConfigScreen(GhostFishingFixesConfig.class, parent).get();
 	}
 }

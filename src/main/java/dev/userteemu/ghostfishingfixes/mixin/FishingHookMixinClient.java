@@ -1,8 +1,8 @@
-package dev.userteemu.fakeplayerfishingfixes.mixin;
+package dev.userteemu.ghostfishingfixes.mixin;
 
-import dev.userteemu.fakeplayerfishingfixes.FakePlayerFishingFixesConfig;
-import dev.userteemu.fakeplayerfishingfixes.FishingRodOwnerPos;
-import dev.userteemu.fakeplayerfishingfixes.interfaces.FishingHookOwnerPosInterface;
+import dev.userteemu.ghostfishingfixes.GhostFishingFixesConfig;
+import dev.userteemu.ghostfishingfixes.FishingRodOwnerPos;
+import dev.userteemu.ghostfishingfixes.interfaces.FishingHookOwnerPosInterface;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
@@ -42,10 +42,10 @@ public class FishingHookMixinClient {
 
 	// If vanilla code does not pull the entity because there is no owner, this code does it using the owner position.
 	// This only works client-side because the server should never have to resort to this
-	// because it always knows who the owner is, even if it's a fake player, and might have more accurate position data, too.
+	// because it always knows who the owner is, even if it's a ghost player, and might have more accurate position data, too.
 	@Inject(method = "pullEntity", at = @At("HEAD"))
 	private void pullEntity(Entity entity, CallbackInfo ci) {
-		if (!entity.level().isClientSide() || !FakePlayerFishingFixesConfig.INSTANCE.allowPullingPlayers) return;
+		if (!entity.level().isClientSide() || !GhostFishingFixesConfig.INSTANCE.allowPullingPlayers) return;
 
 		FishingHook instance = ((FishingHook)((Object)this));
 		FishingRodOwnerPos ownerPos = ((FishingHookOwnerPosInterface) instance).getOwnerPos();

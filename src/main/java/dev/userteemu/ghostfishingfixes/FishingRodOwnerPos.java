@@ -1,4 +1,4 @@
-package dev.userteemu.fakeplayerfishingfixes;
+package dev.userteemu.ghostfishingfixes;
 
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.network.FriendlyByteBuf;

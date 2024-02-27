@@ -1,0 +1,6 @@
+{
+  "text.autoconfig.ghost_fishing_fixes.title": "Ghost fishing fixes",
+  "text.autoconfig.ghost_fishing_fixes.option.allowPullingPlayers": "Allow pulling players",
+  "text.autoconfig.ghost_fishing_fixes.option.allowPullingPlayers.@Tooltip[0]": "Allows the player to be pulled by a ghost player's fishing rod.",
+  "text.autoconfig.ghost_fishing_fixes.option.allowPullingPlayers.@Tooltip[1]": "This is normally not possible so it might cause issues with very strict anti-cheats for example."
+}

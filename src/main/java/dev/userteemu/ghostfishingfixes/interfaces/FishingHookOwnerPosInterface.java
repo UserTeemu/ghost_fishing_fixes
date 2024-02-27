@@ -1,6 +1,6 @@
-package dev.userteemu.fakeplayerfishingfixes.interfaces;
+package dev.userteemu.ghostfishingfixes.interfaces;
 
-import dev.userteemu.fakeplayerfishingfixes.FishingRodOwnerPos;
+import dev.userteemu.ghostfishingfixes.FishingRodOwnerPos;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.Nullable;

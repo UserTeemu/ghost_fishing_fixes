@@ -1,4 +1,4 @@
-package dev.userteemu.fakeplayerfishingfixes.mixin;
+package dev.userteemu.ghostfishingfixes.mixin;
 
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
@@ -13,8 +13,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 
-import dev.userteemu.fakeplayerfishingfixes.FishingRodOwnerPos;
-import dev.userteemu.fakeplayerfishingfixes.interfaces.FishingHookOwnerPosInterface;
+import dev.userteemu.ghostfishingfixes.FishingRodOwnerPos;
+import dev.userteemu.ghostfishingfixes.interfaces.FishingHookOwnerPosInterface;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;

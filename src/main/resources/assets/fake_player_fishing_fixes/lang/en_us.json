@@ -1,6 +1,0 @@
-{
-  "text.autoconfig.fake_player_fishing_fixes.title": "Fake player fishing fixes",
-  "text.autoconfig.fake_player_fishing_fixes.option.allowPullingPlayers": "Allow pulling players",
-  "text.autoconfig.fake_player_fishing_fixes.option.allowPullingPlayers.@Tooltip[0]": "Allows the player to be pulled by a fake player's fishing rod, which normally would not be possible. ",
-  "text.autoconfig.fake_player_fishing_fixes.option.allowPullingPlayers.@Tooltip[1]": "Obviously, this has more than cosmetic effects and may cause issues with strict anti-cheat systems etc."
-}

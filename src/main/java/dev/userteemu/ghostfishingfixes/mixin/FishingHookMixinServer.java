@@ -1,9 +1,9 @@
-package dev.userteemu.fakeplayerfishingfixes.mixin;
+package dev.userteemu.ghostfishingfixes.mixin;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import dev.userteemu.fakeplayerfishingfixes.interfaces.FishingHookOwnerPosInterface;
+import dev.userteemu.ghostfishingfixes.interfaces.FishingHookOwnerPosInterface;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.userteemu.fakeplayerfishingfixes.FakePlayerFishingFixes;
+import dev.userteemu.ghostfishingfixes.GhostFishingFixes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -26,7 +26,7 @@ public abstract class FishingHookMixinServer extends Entity {
 	private Set<ServerPlayer> subscriberPlayers = null;
 
 	@Unique
-	private boolean isOwnedByFakePlayer = false;
+	private boolean isOwnedByGhost = false;
 
 	public FishingHookMixinServer(EntityType<?> entityType, Level level) {
 		super(entityType, level);
@@ -36,14 +36,14 @@ public abstract class FishingHookMixinServer extends Entity {
 	private void setOwner(Entity owner, CallbackInfo ci) {
 		if (owner.level().isClientSide()) return;
 
-		if (owner instanceof ServerPlayer && FakePlayerFishingFixes.isFakePlayer((ServerPlayer) owner)) {
+		if (owner instanceof ServerPlayer && GhostFishingFixes.isGhost((ServerPlayer) owner)) {
 			subscriberPlayers = new HashSet<>();
-			isOwnedByFakePlayer = true;
+			isOwnedByGhost = true;
 		} else {
-			isOwnedByFakePlayer = false;
+			isOwnedByGhost = false;
 			((FishingHookOwnerPosInterface) this).setOwnerPos(null);
 			if (subscriberPlayers != null) {
-				FakePlayerFishingFixes.unloadFromClients((FishingHook)(Object) this, subscriberPlayers.toArray(new ServerPlayer[0]));
+				GhostFishingFixes.unloadFromClients((FishingHook)(Object) this, subscriberPlayers.toArray(new ServerPlayer[0]));
 				subscriberPlayers.clear();
 			}
 		}
@@ -51,19 +51,19 @@ public abstract class FishingHookMixinServer extends Entity {
 
 	@Inject(method = "tick", at = @At("RETURN"))
 	private void tick(CallbackInfo ci) {
-		if (!isOwnedByFakePlayer) return;
+		if (!isOwnedByGhost) return;
 
 		FishingHook instance = (FishingHook)(Object) this;
 
 		if (instance.level().isClientSide()) return; // This code should run only server-side.
 
-		FakePlayerFishingFixes.updateAndNotifyClients((ServerPlayer) instance.getPlayerOwner(), instance, subscriberPlayers.toArray(new ServerPlayer[0]));
+		GhostFishingFixes.updateAndNotifyClients((ServerPlayer) instance.getPlayerOwner(), instance, subscriberPlayers.toArray(new ServerPlayer[0]));
 	}
 
 	@Override
 	public void startSeenByPlayer(ServerPlayer serverPlayer) {
 		super.startSeenByPlayer(serverPlayer);
-		if (isOwnedByFakePlayer && !this.isRemoved()) {
+		if (isOwnedByGhost && !this.isRemoved()) {
 			subscriberPlayers.add(serverPlayer);
 		}
 	}
@@ -71,9 +71,9 @@ public abstract class FishingHookMixinServer extends Entity {
 	@Override
 	public void stopSeenByPlayer(ServerPlayer serverPlayer) {
 		super.stopSeenByPlayer(serverPlayer);
-		if (isOwnedByFakePlayer && !this.isRemoved()) {
+		if (isOwnedByGhost && !this.isRemoved()) {
 			subscriberPlayers.remove(serverPlayer);
-			FakePlayerFishingFixes.unloadFromClients((FishingHook)(Object) this, serverPlayer);
+			GhostFishingFixes.unloadFromClients((FishingHook)(Object) this, serverPlayer);
 		}
 	}
 }

@@ -1,30 +1,31 @@
 {
   "schemaVersion": 1,
-  "id": "fake_player_fishing_fixes",
+  "id": "ghost_fishing_fixes",
   "version": "${version}",
-  "name": "Fake Player Fishing Fixes",
-  "description": "Fixes issues with fake players using fishing rods",
+  "name": "Ghost Fishing Fixes",
+  "description": "Fixes issues with fishing rods cast by players that the client is not aware of",
   "authors": [
     "UserTeemu"
   ],
   "contact": {
-    "sources": "https://github.com/UserTeemu/fake_player_fishing_fixes"
+    "sources": "https://github.com/UserTeemu/ghost_fishing_fixes"
   },
   "license": "LGPL-3.0-or-later",
+  "icon": "assets/ghost_fishing_fixes/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.userteemu.fakeplayerfishingfixes.FakePlayerFishingFixes"
+      "dev.userteemu.ghostfishingfixes.GhostFishingFixes"
     ],
     "client": [
-      "dev.userteemu.fakeplayerfishingfixes.FakePlayerFishingFixes"
+      "dev.userteemu.ghostfishingfixes.GhostFishingFixes"
     ],
     "modmenu": [
-      "dev.userteemu.fakeplayerfishingfixes.FakePlayerFishingFixesModMenuIntegration"
+      "dev.userteemu.ghostfishingfixes.GhostFishingFixesModMenuIntegration"
     ]
   },
   "mixins": [
-    "fake_player_fishing_fixes.mixins.json"
+    "ghost_fishing_fixes.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
