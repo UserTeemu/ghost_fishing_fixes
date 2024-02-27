@@ -28,18 +28,17 @@ public class FakePlayerFishingFixes implements ModInitializer, ClientModInitiali
 	public static final String NAME = "Fake Player Fishing Fixes";
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
-	public static boolean PORTING_LIB_FOUND = false;
+	public static Class<?> PORTING_LIB_FAKE_PLAYER_CLASS = null;
 
 	public static final ResourceLocation FISHING_ROD_OWNER_POS_PACKET = new ResourceLocation(ID, "owner_pos");
 
 	@Override
 	public void onInitialize() {
 		try {
-			Class.forName("io.github.fabricators_of_create.porting_lib.fake_players.FakePlayer");
-			PORTING_LIB_FOUND = true;
+			PORTING_LIB_FAKE_PLAYER_CLASS = Class.forName("io.github.fabricators_of_create.porting_lib.fake_players.FakePlayer");
 		} catch (ClassNotFoundException e) {
 			LOGGER.info("Create Porting Lib not found.");
-			PORTING_LIB_FOUND = false;
+			PORTING_LIB_FAKE_PLAYER_CLASS = null;
 		}
 	}
 
@@ -56,7 +55,7 @@ public class FakePlayerFishingFixes implements ModInitializer, ClientModInitiali
 	public static boolean isFakePlayer(ServerPlayer player) {
 		return (
 				player instanceof net.fabricmc.fabric.api.entity.FakePlayer ||
-				(PORTING_LIB_FOUND && player instanceof io.github.fabricators_of_create.porting_lib.fake_players.FakePlayer)
+				(PORTING_LIB_FAKE_PLAYER_CLASS != null && PORTING_LIB_FAKE_PLAYER_CLASS.isInstance(player))
 		);
 	}
 
