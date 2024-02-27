@@ -1,5 +1,11 @@
 package dev.userteemu.fakeplayerfishingfixes.mixin;
 
+import dev.userteemu.fakeplayerfishingfixes.FakePlayerFishingFixesConfig;
+import dev.userteemu.fakeplayerfishingfixes.FishingRodOwnerPos;
+import dev.userteemu.fakeplayerfishingfixes.interfaces.FishingHookOwnerPosInterface;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -9,6 +15,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
+
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FishingHook.class)
 public class FishingHookMixinClient {
@@ -28,6 +37,22 @@ public class FishingHookMixinClient {
 			return p != null ? p : Minecraft.getInstance().player;
 		} else {
 			return original.call(instance);
+		}
+	}
+
+	// If vanilla code does not pull the entity because there is no owner, this code does it using the owner position.
+	// This only works client-side because the server should never have to resort to this
+	// because it always knows who the owner is, even if it's a fake player, and might have more accurate position data, too.
+	@Inject(method = "pullEntity", at = @At("HEAD"))
+	private void pullEntity(Entity entity, CallbackInfo ci) {
+		if (!entity.level().isClientSide() || !FakePlayerFishingFixesConfig.INSTANCE.allowPullingPlayers) return;
+
+		FishingHook instance = ((FishingHook)((Object)this));
+		FishingRodOwnerPos ownerPos = ((FishingHookOwnerPosInterface) instance).getOwnerPos();
+		if (instance.getOwner() == null && ownerPos != null) {
+			// Run same code as vanilla but using ownerPos.
+			Vec3 vec3 = new Vec3(ownerPos.x - instance.getX(), ownerPos.y - instance.getY(), ownerPos.z - instance.getZ()).scale(0.1);
+			entity.setDeltaMovement(entity.getDeltaMovement().add(vec3));
 		}
 	}
 }

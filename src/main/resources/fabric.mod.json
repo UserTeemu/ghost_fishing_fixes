@@ -18,6 +18,9 @@
     ],
     "client": [
       "dev.userteemu.fakeplayerfishingfixes.FakePlayerFishingFixes"
+    ],
+    "modmenu": [
+      "dev.userteemu.fakeplayerfishingfixes.FakePlayerFishingFixesModMenuIntegration"
     ]
   },
   "mixins": [

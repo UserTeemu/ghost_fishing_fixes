@@ -1,5 +1,7 @@
 package dev.userteemu.fakeplayerfishingfixes;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -43,7 +45,12 @@ public class FakePlayerFishingFixes implements ModInitializer, ClientModInitiali
 
 	@Override
 	public void onInitializeClient() {
+		// Register packet receiver
 		ClientPlayNetworking.registerGlobalReceiver(FISHING_ROD_OWNER_POS_PACKET, this::setRodOwnerPos);
+
+		// Initialize config
+		AutoConfig.register(FakePlayerFishingFixesConfig.class, JanksonConfigSerializer::new);
+		FakePlayerFishingFixesConfig.INSTANCE = AutoConfig.getConfigHolder(FakePlayerFishingFixesConfig.class).getConfig();
 	}
 
 	public static boolean isFakePlayer(ServerPlayer player) {
