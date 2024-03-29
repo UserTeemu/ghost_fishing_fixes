@@ -51,4 +51,9 @@ public class FishingRodOwnerPos {
 		Vec3 pos = player.position();
 		return new FishingRodOwnerPos(pos.x, pos.y, pos.z);
 	}
+
+	@Override
+	public String toString() {
+		return "[x=" + x + ", y=" + y + ", z=" + z + "]";
+	}
 }
