@@ -28,18 +28,11 @@ public class GhostFishingFixes implements ModInitializer, ClientModInitializer {
 	public static final String NAME = "Ghost Fishing Fixes";
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
-	public static Class<?> PORTING_LIB_FAKE_PLAYER_CLASS = null;
-
 	public static final ResourceLocation FISHING_ROD_OWNER_POS_PACKET = new ResourceLocation(ID, "owner_pos");
 
 	@Override
 	public void onInitialize() {
-		try {
-			PORTING_LIB_FAKE_PLAYER_CLASS = Class.forName("io.github.fabricators_of_create.porting_lib.fake_players.FakePlayer");
-		} catch (ClassNotFoundException e) {
-			LOGGER.info("Create Porting Lib not found.");
-			PORTING_LIB_FAKE_PLAYER_CLASS = null;
-		}
+		GhostFishingFixesCompatibilityUtil.init();
 	}
 
 	@Override
@@ -55,7 +48,7 @@ public class GhostFishingFixes implements ModInitializer, ClientModInitializer {
 	public static boolean isGhost(ServerPlayer player) {
 		return (
 				player instanceof net.fabricmc.fabric.api.entity.FakePlayer ||
-				(PORTING_LIB_FAKE_PLAYER_CLASS != null && PORTING_LIB_FAKE_PLAYER_CLASS.isInstance(player))
+				(GhostFishingFixesCompatibilityUtil.PORTING_LIB_FAKE_PLAYER_CLASS != null && GhostFishingFixesCompatibilityUtil.PORTING_LIB_FAKE_PLAYER_CLASS.isInstance(player))
 		);
 	}
 

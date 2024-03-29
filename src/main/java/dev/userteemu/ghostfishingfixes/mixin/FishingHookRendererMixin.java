@@ -1,5 +1,7 @@
 package dev.userteemu.ghostfishingfixes.mixin;
 
+import dev.userteemu.ghostfishingfixes.GhostFishingFixesCompatibilityUtil;
+
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Final;
@@ -56,10 +58,7 @@ public abstract class FishingHookRendererMixin extends EntityRenderer<FishingHoo
 
 		// Modified version of the vanilla code to render the bobber and the fishing line but using the positions provided by ownerPos.
 
-		poseStack.pushPose();
-
 		// Render bobber
-
 		poseStack.pushPose();
 		poseStack.scale(0.5F, 0.5F, 0.5F);
 		poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
@@ -75,7 +74,7 @@ public abstract class FishingHookRendererMixin extends EntityRenderer<FishingHoo
 		poseStack.popPose();
 
 		// Render fishing line
-
+		poseStack.pushPose();
 		float x = (float)(ownerPos.x - Mth.lerp(partialTicks, entity.xo, entity.getX()));
 		float y = (float)(ownerPos.y - Mth.lerp(partialTicks, entity.yo, entity.getY()) - 0.25);
 		float z = (float)(ownerPos.z - Mth.lerp(partialTicks, entity.zo, entity.getZ()));
@@ -83,6 +82,11 @@ public abstract class FishingHookRendererMixin extends EntityRenderer<FishingHoo
 		PoseStack.Pose pose2 = poseStack.last();
 		for (int w = 0; w <= 16; ++w) {
 			stringVertex(x, y, z, vertexConsumer2, pose2, fraction(w, 16), fraction(w + 1, 16));
+		}
+		// If using Iris, do the same thing that Iris does.
+		if (GhostFishingFixesCompatibilityUtil.USING_IRIS) {
+			// See: https://github.com/IrisShaders/Iris/blob/e4f6082921ee631fd74485d12875a8b157aadf9d/src/main/java/net/coderbot/batchedentityrendering/mixin/MixinFishingHookRenderer.java
+			vertexConsumer2.vertex(0, 0, 0).color(0, 0, 0, 255).normal(0, 0, 0).endVertex();
 		}
 		poseStack.popPose();
 
